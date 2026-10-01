@@ -9,6 +9,7 @@ game/helicopter.py) that Task 1 asks you to fix.
 """
 
 import random
+import pygame
 
 from game.helicopter import Helicopter
 from game.obstacle import Obstacle
@@ -25,6 +26,7 @@ class GameEngine:
         self.helicopter = Helicopter(x=100, y=HEIGHT / 2)
         self.obstacles = []
         self.frames_until_spawn = 0
+        self.game_over = False
 
     def _spawn_obstacle(self):
         margin = 60
@@ -35,12 +37,16 @@ class GameEngine:
         ))
 
     def handle_input(self, keys_pressed):
-        self.helicopter.handle_input(keys_pressed)
+        if not self.game_over:
+            self.helicopter.handle_input(keys_pressed)
 
     def handle_keydown(self, key):
-        pass
+        if self.game_over and key == pygame.K_r:
+            self.__init__()
 
     def update(self):
+        if self.game_over:
+            return
         self.helicopter.update(HEIGHT)
 
         self.frames_until_spawn -= 1
@@ -52,6 +58,16 @@ class GameEngine:
             obstacle.update()
         self.obstacles = [o for o in self.obstacles if not o.is_off_screen()]
 
+        helicopter_rect = self.helicopter.get_rect()
+        for obstacle in self.obstacles:
+            if (helicopter_rect.colliderect(obstacle.get_top_rect()) or
+                    helicopter_rect.colliderect(obstacle.get_bottom_rect())):
+                self.game_over = True
+                break
+
     def draw(self, surface, font):
         from game import renderer
         renderer.draw_scene(surface, self.helicopter, self.obstacles)
+        renderer.draw_text(surface, font, 'Up/Down: fly   R: restart after crash', (12, 12))
+        if self.game_over:
+            renderer.draw_banner(surface, font, 'GAME OVER - Press R to restart')
