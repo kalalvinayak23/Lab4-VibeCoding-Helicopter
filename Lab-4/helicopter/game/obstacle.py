@@ -14,7 +14,6 @@ class Obstacle:
         self.wall_width = wall_width
         self.screen_height = screen_height
         self.speed = speed
-        self.scored = False   # used for distance/pass tracking later
 
     def update(self):
         self.x -= self.speed

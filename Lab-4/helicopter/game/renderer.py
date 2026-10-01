@@ -13,12 +13,14 @@ COLOR_OBSTACLE = (70, 150, 80)
 COLOR_TEXT = (20, 20, 20)
 
 
-def draw_scene(surface, helicopter, obstacles):
+def draw_scene(surface, helicopter, obstacles, shield_active=False):
     surface.fill(COLOR_BG)
     for obstacle in obstacles:
         pygame.draw.rect(surface, COLOR_OBSTACLE, obstacle.get_top_rect())
         pygame.draw.rect(surface, COLOR_OBSTACLE, obstacle.get_bottom_rect())
     pygame.draw.rect(surface, COLOR_HELI, helicopter.get_rect(), border_radius=4)
+    if shield_active:
+        pygame.draw.ellipse(surface, (30, 90, 240), helicopter.get_rect().inflate(20, 20), 3)
 
 
 def draw_text(surface, font, text, pos, color=COLOR_TEXT):
