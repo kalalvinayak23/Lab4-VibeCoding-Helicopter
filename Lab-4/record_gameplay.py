@@ -15,13 +15,15 @@ from game.renderer import WINDOW_SIZE
 
 pygame.init()
 screen = pygame.display.set_mode(WINDOW_SIZE)
+capture_size = (WINDOW_SIZE[0], WINDOW_SIZE[1] + 40)
+capture = pygame.Surface(capture_size)
 font = pygame.font.SysFont('consolas', 22)
 label_font = pygame.font.SysFont('consolas', 16)
 random.seed(1)
 engine = GameEngine()
 encoder = subprocess.Popen([
     'ffmpeg', '-y', '-loglevel', 'error', '-f', 'rawvideo', '-pixel_format',
-    'rgb24', '-video_size', '700x500', '-framerate', '60', '-i', '-',
+    'rgb24', '-video_size', f'{capture_size[0]}x{capture_size[1]}', '-framerate', '60', '-i', '-',
     '-an', '-c:v', 'libx264', '-pix_fmt', 'yuv420p', output
 ], stdin=subprocess.PIPE)
 for frame in range(600):
@@ -45,11 +47,12 @@ for frame in range(600):
     engine.handle_input({pygame.K_UP: up, pygame.K_DOWN: down})
     engine.update()
     engine.draw(screen, font)
-    pygame.draw.rect(screen, (245, 245, 245), (0, 462, 700, 38))
-    screen.blit(label_font.render(mode.upper() + ' | Scripted gameplay capture', True, (20, 20, 20)), (10, 464))
-    screen.blit(label_font.render(description, True, (20, 20, 20)), (10, 482))
+    capture.fill((245, 245, 245))
+    capture.blit(screen, (0, 0))
+    capture.blit(label_font.render(mode.upper() + ' | Scripted gameplay capture', True, (20, 20, 20)), (10, 502))
+    capture.blit(label_font.render(description, True, (20, 20, 20)), (10, 520))
     pygame.display.flip()
-    encoder.stdin.write(pygame.image.tobytes(screen, 'RGB'))
+    encoder.stdin.write(pygame.image.tobytes(capture, 'RGB'))
 encoder.stdin.close()
 if encoder.wait() != 0:
     raise RuntimeError('Video encoding failed')

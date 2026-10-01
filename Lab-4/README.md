@@ -3,7 +3,7 @@
 Source: https://github.com/SETAPESU26/08_helicopter
 
 - `helicopter/`: completed game and 12 passing regression tests.
-- `videos/before.mp4` and `videos/after.mp4`: each 10 seconds, 700 x 500, 60 FPS.
+- `videos/before.mp4` and `videos/after.mp4`: each 10 seconds and 60 FPS. The original before capture is 700 x 500; the after capture is 700 x 540 with captions below the full game area so they do not hide the bottom boundary.
 - `Chat_History.pdf`: user-visible conversation transcript through preparation, plus implementation and validation notes.
 - `COMMITS.txt`: separate commit for each required task.
 - `helicopter_history.bundle`: actual Git history, including the original starter and all changes.
@@ -24,7 +24,7 @@ git clone helicopter_history.bundle restored-helicopter
 cd restored-helicopter
 ```
 
-The code is published at https://github.com/kalalvinayak23/Lab4-VibeCoding-Helicopter with separate task commits. `COMMITS.txt` lists the uploaded commits. The bundle preserves the original local implementation history; its commit hashes differ from the uploaded commits because the GitHub version places the game under Lab-4. No PR was opened against SETAPESU26.
+The code is published at https://github.com/kalalvinayak23/Lab4-VibeCoding-Helicopter with separate task commits. `COMMITS.txt` lists the uploaded commits through the shield verification fix. The bundle preserves that uploaded history, including the fix. After restoring it, run the game from `restored-helicopter/Lab-4/helicopter`. No PR was opened against SETAPESU26.
 
 ## Chat link
 
