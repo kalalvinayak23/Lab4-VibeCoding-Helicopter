@@ -1,0 +1,6 @@
+94294b879239d738dc26277f72ab9ebcee1cc20b Initial Helicopter starter
+130afa65e509617bf970678450b4a8660a3b1cfb Task 1: fix direction reversal, cap speed and clamp both boundaries
+4c86fabd655cbe5ee19116bc3e93ab5509e6cd13 Task 2: detect wall collisions, freeze game and enable restart
+abb39dc772db660bdbed59b8999b931ab2bbc93f Task 3: track scrolling distance, display final score and reset on restart
+392ca637d29bb7ae02153f835231a98dbf5714b6 Task 4: add visible reusable one-hit shield with continuous-contact handling
+696dcadb22f93c8e04968da68d1eea00cacc7123 Add regression checks and running instructions
