@@ -125,6 +125,27 @@ class GameTests(unittest.TestCase):
         self.engine.update()
         self.assertTrue(self.engine.game_over)
 
+    def test_same_wall_new_contact_needs_a_new_shield(self):
+        for reactivate in (False, True):
+            with self.subTest(reactivate=reactivate):
+                self.setUp()
+                self.engine.obstacles = [self.wall()]
+                self.engine.handle_keydown(pygame.K_SPACE)
+                self.engine.update()
+                self.assertFalse(self.engine.game_over)
+                self.assertFalse(self.engine.shield_active)
+                # Enter the gap while still overlapping the obstacle horizontally.
+                self.engine.helicopter.y = 150
+                self.engine.update()
+                self.assertIsNone(self.engine.shielded_obstacle)
+                if reactivate:
+                    self.engine.handle_keydown(pygame.K_SPACE)
+                # This is a new hit on the same wall, not the absorbed contact.
+                self.engine.helicopter.y = 250
+                self.engine.update()
+                self.assertEqual(self.engine.game_over, not reactivate)
+                self.assertFalse(self.engine.shield_active)
+
     def test_render_running_shield_and_game_over(self):
         pygame.init()
         surface = pygame.Surface(WINDOW_SIZE)

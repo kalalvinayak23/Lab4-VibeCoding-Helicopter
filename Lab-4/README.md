@@ -2,7 +2,7 @@
 
 Source: https://github.com/SETAPESU26/08_helicopter
 
-- `helicopter/`: completed game and 11 passing regression tests.
+- `helicopter/`: completed game and 12 passing regression tests.
 - `videos/before.mp4` and `videos/after.mp4`: each 10 seconds, 700 x 500, 60 FPS.
 - `Chat_History.pdf`: user-visible conversation transcript through preparation, plus implementation and validation notes.
 - `COMMITS.txt`: separate commit for each required task.

@@ -60,12 +60,11 @@ class GameEngine:
         self.obstacles = [o for o in self.obstacles if not o.is_off_screen()]
 
         helicopter_rect = self.helicopter.get_rect()
-        # One continuous crossing of the absorbed wall is one hit.
-        # Stop ignoring that obstacle once its horizontal overlap ends.
+        # Ignore only the ongoing contact that consumed the shield.
+        # Leaving the wall (including entering its gap) ends that contact.
         if self.shielded_obstacle is not None:
-            obstacle_rect = self.shielded_obstacle.get_top_rect()
-            if (obstacle_rect.right <= helicopter_rect.left or
-                    obstacle_rect.left >= helicopter_rect.right):
+            if not (helicopter_rect.colliderect(self.shielded_obstacle.get_top_rect()) or
+                    helicopter_rect.colliderect(self.shielded_obstacle.get_bottom_rect())):
                 self.shielded_obstacle = None
         for obstacle in self.obstacles:
             if obstacle is self.shielded_obstacle:

@@ -18,7 +18,7 @@ Controls: **Up/Down** to fly, **Space** to activate the shield, **R** to restart
 1. Vertical speed is capped at 6 pixels per frame. Reversing direction clears old momentum. Releasing keys slows the helicopter. Both boundaries account for the helicopter's full height.
 2. Collision checks use the two actual wall rectangles. The gap is safe. A crash freezes movement and displays game over. R starts a new game.
 3. Distance follows the scrolling world: 10 pixels = 1 metre. It increases while playing, freezes on game over and resets on restart.
-4. Space activates a visible blue shield. A hit turns it off immediately. One continuous crossing of the absorbed obstacle counts as one hit; another obstacle is lethal unless Space activates the shield again. There is no cooldown or charge limit because the task does not request one.
+4. Space activates a visible blue shield. A hit turns it off immediately. Only the continuous wall contact that consumed the shield is ignored. Once the helicopter leaves that wall (including entering its gap), any new hit is lethal unless Space activates the shield again. There is no cooldown or charge limit because the task does not request one.
 
 ## Check the code
 
@@ -26,6 +26,6 @@ Controls: **Up/Down** to fly, **Space** to activate the shield, **R** to restart
 python3 -m unittest discover -s tests -v
 ```
 
-11 tests cover reversal, speed limits, both boundaries, release braking, both walls, safe positions throughout the gap, scoring, frozen game over, restart, shield consumption/reactivation, simultaneous collisions and drawing.
+12 tests cover reversal, speed limits, both boundaries, release braking, both walls, safe positions throughout the gap, scoring, frozen game over, restart, shield consumption/reactivation, a new collision with the same wall, simultaneous collisions and drawing.
 
 The game retains the starter's frame-based 60 FPS movement model.
