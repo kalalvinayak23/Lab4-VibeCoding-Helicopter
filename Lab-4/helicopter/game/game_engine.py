@@ -19,6 +19,7 @@ SPAWN_INTERVAL_FRAMES = 90
 GAP_HEIGHT = 150
 WALL_WIDTH = 60
 SCROLL_SPEED = 3
+PIXELS_PER_METRE = 10
 
 
 class GameEngine:
@@ -27,6 +28,7 @@ class GameEngine:
         self.obstacles = []
         self.frames_until_spawn = 0
         self.game_over = False
+        self.distance = 0.0
 
     def _spawn_obstacle(self):
         margin = 60
@@ -48,6 +50,7 @@ class GameEngine:
         if self.game_over:
             return
         self.helicopter.update(HEIGHT)
+        self.distance += SCROLL_SPEED / PIXELS_PER_METRE
 
         self.frames_until_spawn -= 1
         if self.frames_until_spawn <= 0:
@@ -69,5 +72,6 @@ class GameEngine:
         from game import renderer
         renderer.draw_scene(surface, self.helicopter, self.obstacles)
         renderer.draw_text(surface, font, 'Up/Down: fly   R: restart after crash', (12, 12))
+        renderer.draw_text(surface, font, f'Distance: {self.distance:.1f} m', (12, 42))
         if self.game_over:
-            renderer.draw_banner(surface, font, 'GAME OVER - Press R to restart')
+            renderer.draw_banner(surface, font, f'GAME OVER | {self.distance:.1f} m | R: restart')
