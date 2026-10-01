@@ -1,6 +1,5 @@
 # Lab 4 - VibeCoding: Helicopter
 
-
 ## Run on macOS
 
 ```bash
@@ -15,10 +14,22 @@ python3 main.py
 
 ## Deliverables
 
-All deliverables are in [Lab-4](Lab-4): updated code, two 10-second gameplay captures, chat-history PDF, and regression tests. The captures use actual Pygame rendering with scripted controls and identify that method in their captions.
+All required files are in [Lab-4](Lab-4):
 
-Separate commits record the starter, Task 1 (movement and boundaries), Task 2 (collision/game over), Task 3 (distance score), and Task 4 (shield). A verification fix also handles new shield collisions with the same wall. All 12 regression tests passed.
+- [Updated game](Lab-4/helicopter)
+- [Before video](Lab-4/videos/before.mp4) and [after video](Lab-4/videos/after.mp4): 10 seconds each, captured from actual gameplay with scripted controls.
+- [Chat history PDF](Lab-4/Chat_History.pdf)
 
-The instructor's README also requests a chat page link. Copy this conversation's Share URL and add it here if required; the PDF is included in Lab-4.
+The game includes responsive movement, screen boundaries, collision/game over, distance scoring, and a one-hit shield. Each task has a separate commit.
+
+## Tests
+
+From `Lab-4/helicopter`:
+
+```bash
+python3 -m unittest discover -s tests -v
+```
+
+All 12 tests passed. The shared conversation link still needs to be added for the assignment checklist.
 
 Starter source: https://github.com/SETAPESU26/08_helicopter
